@@ -24,7 +24,8 @@ const ENTROPY2 = document.getElementById("Entropy2");
 HTML_CODE = function(variable) {
     return `<div style = "margin: auto;width: 80%; background-color: white; margin-top: 20px; padding: 20px;
         border-color: black; border-style: solid; border-width: 4px; border-radius: 10px; margin-bottom: 20px;">
-        <p style = 'text-align: left; margin: 0px; padding: 0px; font-family: "cascadia code semibold", monospace; font-size: 1.4em;'>${variable}</p></div>`
+        <p style = 'text-align: left; margin: 0px; padding: 0px; font-family: "cascadia code semibold", monospace;
+         font-size: 1.4em;'>${variable}</p></div>`
 }
 
 function selectRandom(inputString) {
