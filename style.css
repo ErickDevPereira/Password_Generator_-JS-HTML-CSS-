@@ -183,3 +183,41 @@ select {
     font-size: 0.9em;
     display: inline;
 }
+
+.JS_pw_label {
+    text-align: center;
+    font-size: 2em;
+    padding: 0px;
+    margin-bottom: 10px;
+}
+
+.JS_password_area {
+    margin: auto;
+    width: 80%;
+    height: 80px;
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-color: black;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: auto;
+}
+
+.JS_password_area p {
+    font-size: 0.8em;
+    text-indent: 0px;
+    text-align: left;
+    margin: 0px;
+    padding: 0px;
+    font-family: "cascadia code semibold", monospace;
+    font-size: 1em;
+}
+
+.JS_ERR {
+    color: red;
+    padding: 0px;
+    text-align: center;
+}
