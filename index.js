@@ -1,5 +1,5 @@
-import {genPassword, getEntropy, getPasswordStrength} from '/features/password.js';
-import {shuffleString} from '/features/utils.js';
+import {genPassword, getEntropy, getPasswordStrength} from './features/password.js';
+import {shuffleString} from './features/utils.js';
 //constant values that will be used along the code.
 const MIN_CHAR = 8;
 const MAX_CHAR = 256
