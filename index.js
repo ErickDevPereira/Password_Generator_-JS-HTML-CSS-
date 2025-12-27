@@ -79,8 +79,6 @@ Interaction.SUBMIT_OPT1.onclick = function() {
     const ERR_MSG1 = "You must fill at least one box";
     const ERR_MSG2 = `The number of elements in the password must be between ${MIN_CHAR} and ${MAX_CHAR}.`;
 
-    const entropy = getEntropy(PASSWORD_SIZE, MUST_BE, PERMISSION_SYMBOLS, PERMISSION_UPPER, PERMISSION_LOWER, PERMISSION_NUMBERS);
-    const STATUS = getPasswordStrength(entropy);
 
     //Operating with respect to conditions
     if (!PERMISSION_SYMBOLS && !PERMISSION_UPPER && !PERMISSION_NUMBERS && !PERMISSION_LOWER) {
@@ -97,9 +95,11 @@ Interaction.SUBMIT_OPT1.onclick = function() {
         setTimeout(function() {
             let marker = true;
             REAL_FIRST_PASSWORD = genPassword(PASSWORD_SIZE, MUST_BE, PERMISSION_SYMBOLS, PERMISSION_UPPER, PERMISSION_LOWER, PERMISSION_NUMBERS);
+            const entropy = getEntropy(REAL_FIRST_PASSWORD);
+            const STATUS = getPasswordStrength(entropy);
             let RESPONSE1_HTML = HTML_PW("&#x1F513; Your password:",  REAL_FIRST_PASSWORD);
             Interaction.RESPONSE_OPT1.innerHTML = RESPONSE1_HTML;
-            Interaction.ENTROPY1.innerText = `Status: ${STATUS}\nEntropy: ${entropy.toFixed(2)}`;
+            Interaction.ENTROPY1.innerText = `Status: ${STATUS}\nEntropy: ${entropy.toFixed(2)} bit`;
             DATASET_PW.push([DATASET_PW.length + 1, REAL_FIRST_PASSWORD, REAL_FIRST_PASSWORD.length, entropy, STATUS]);
             if (watch_table) {
                 HTML_STR = HTML_TABLE1(BASIC_TABLE_CSS, EMBEDED_CSS);
@@ -113,6 +113,7 @@ Interaction.SUBMIT_OPT1.onclick = function() {
                 Interaction.DATASET.innerHTML = HTML_STR;
             }
         }, 50**2 + 1);
+
     }
 }
 
@@ -139,7 +140,7 @@ Interaction.SUBMIT_OPT2.onclick = function() {
             Interaction.RESPONSE_OPT2.innerHTML = RESPONSE2_HTML;
             const entropy = Math.log2(104 ** INPUT.length);
             const status = getPasswordStrength(entropy);
-            Interaction.ENTROPY2.innerText = `Status: ${status}\nEntropy: ${entropy.toFixed(2)}`;
+            Interaction.ENTROPY2.innerText = `Status: ${status}\nEntropy: ${entropy.toFixed(2)} bit`;
             DATASET_PW.push([DATASET_PW.length + 1, REAL_SEC_PASSWORD, REAL_SEC_PASSWORD.length, entropy, status]);
             if (watch_table) {
             HTML_STR = HTML_TABLE1(BASIC_TABLE_CSS, EMBEDED_CSS);
