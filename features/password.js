@@ -30,57 +30,36 @@ export function genPassword(size, required_char, symbols_signal = true, upper_si
         arr_password[Math.floor(Math.random() * size)] = required_char;
         const nonChaoticPassword = arr_password.join("");
         const chaoticPassword = shuffleString(nonChaoticPassword);
-        return chaoticPassword
+        return chaoticPassword;
     } catch (err) {
         console.log('SOMETHING WENT WRONG DURING THE CREATION OF THE PASSWORD');
         console.error(err);
     }
 }
 
-export function getEntropy(size, required_char, symbols_signal, upper_signal, lower_signal, number_signal) {
+export function getEntropy(password) {
     
-    //This function is built for the first scenario.
-    //Let Range be the number of possible characters to be put inside the password, Length be the size of the Password, then E = log2(R^L) will be the entropy of the password.
-    //Security is proportional to entropy.
-
-    let range = 0;
-    if (symbols_signal) {
-        range += SYMBOLS.length;
+    const freq = {};
+    for(let char of password) {
+        freq[char] = (freq[char] || 0) + 1;
     }
-    if (upper_signal) {
-        range += 26;
+    
+    let entropy = 0;
+    const len = password.length;
+    
+    for(let char in freq) {
+        const p = freq[char] / len;
+        entropy -= p * Math.log2(p);
     }
-    if (lower_signal) {
-        range += 26;
-    }
-    if (number_signal) {
-        range += 10;
-    }
-    const arr_char = [];
-    for (let i = 0; i < SYMBOLS.length; i++) {
-        arr_char.push(SYMBOLS[i]);
-    }
-    if (!isInside(required_char, arr_char)) {
-        range++;
-    }
-    const ENTROPY = Math.log2(range ** size);
-    return ENTROPY;
-}
+    
+    return entropy * len;
+}   
 
 export function getPasswordStrength(entropy) {
 
-    if (entropy <= 28) {
-        return "Very weak";
-    } else if (entropy > 28 && entropy <= 35) {
-        return "Weak";
-    } else if (entropy > 36 && entropy <= 59) {
-        return "Standard";
-    } else if (entropy > 60 && entropy <= 79) {
-        return "Strong";
-    } else if (entropy > 79 && entropy <= 100) {
-        return "Very Strong";
-    } else if (entropy > 100) {
-        return "Impossible to break";
-    }
-
+    if (entropy < 40) return "very weak";
+    if (entropy < 60) return "weak";
+    if (entropy < 80) return "fair";
+    if (entropy < 100) return "strong";
+    return "very strong";
 }
